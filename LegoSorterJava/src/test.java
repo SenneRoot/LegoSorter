@@ -1,8 +1,8 @@
 import java.io.IOException;
 
 import com.hopding.jrpicam.*;
-import com.hopding.jrpicam.enums.Exposure;
 import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
+
 
 public class test
 {
