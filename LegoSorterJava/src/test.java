@@ -6,16 +6,20 @@ import org.opencv.videoio.VideoCapture;
 
 public class test
 {
-	static VideoCapture capture;
-	static Mat webcam_image;
+	private static RPiCamera piCamera;
 	
 	public test()
 	{
-		 capture = new VideoCapture(0);
-		 webcam_image = new Mat();
+		try
+		{
+			piCamera = new RPiCamera("/home/pi/Snapshots");
+		} catch(FailedToRunRaspistillException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args)
 	{
-		capture.read(webcam_image);
+		piCamera.setSaveDir("/home/pi/AlternativeDirectory");
 	}
 }
