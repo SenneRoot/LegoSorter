@@ -10,6 +10,10 @@ public class test
 	
 	public test()
 	{
+		
+	}
+	public static void main(String[] args)
+	{
 		try
 		{
 			piCamera = new RPiCamera("/home/pi/Snapshots");
@@ -17,9 +21,6 @@ public class test
 		{
 			e.printStackTrace();
 		}
-	}
-	public static void main(String[] args)
-	{
 		piCamera.setSaveDir("/home/pi/AlternativeDirectory");
 	}
 }
