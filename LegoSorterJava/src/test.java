@@ -1,8 +1,8 @@
-import com.hopding.jrpicam.RPiCamera;
-import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
+import java.io.IOException;
 
-import org.opencv.core.Mat;
-import org.opencv.videoio.VideoCapture;
+import com.hopding.jrpicam.*;
+import com.hopding.jrpicam.enums.*;
+import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
 
 public class test
 {
@@ -14,13 +14,23 @@ public class test
 	}
 	public static void main(String[] args)
 	{
-		try
-		{
-			piCamera = new RPiCamera("/home/pi/Snapshots");
-		} catch(FailedToRunRaspistillException e) 
-		{
-			e.printStackTrace();
+		try {
+			piCamera = new RPiCamera("/home/pi/Pictures")
+				     .setWidth(500)
+				     .setHeight(500)
+				     .setBrightness(75)
+				     .setExposure(Exposure.AUTO)
+				     .setTimeout(2)
+				     .setAddRawBayer(true);
+		} catch (FailedToRunRaspistillException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		piCamera.setSaveDir("/home/pi/AlternativeDirectory");
+			try {
+				piCamera.takeStill("An Awesome Pic.jpg");
+			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }
