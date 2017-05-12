@@ -1,6 +1,14 @@
-class Regulator
+import Vibrating_Funnel
 
-	def determineColour(Snapshot):
-	def getImage():
-	def runConveyorBelt():
-	def runVibratingFunnel():
+class Regulator:
+    def __init__(self):
+
+	def determineColour(self, Snapshot):
+
+	def getImage(self):
+
+	def runConveyorBelt(self):
+
+	def runVibratingFunnel(self):
+        Vibrating_Funnel.vibrateFunnel()
+    if __name__ == "__main__":
