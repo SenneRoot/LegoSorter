@@ -3,4 +3,4 @@ class Vibrating_Funnel:
         self.funnelID = 1
         self.speedPWM = 10
     def vibrateFunnel(self):
-        print("%d",speedPWM)
+        print(self.speedPWM)
