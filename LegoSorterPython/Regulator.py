@@ -13,7 +13,7 @@ class Regulator:
     def runVibratingFunnel(self):
         #Vibrating_Funnel.vibrateFunnel(self, Vibrating_Funnel.speedPWM)
         funnel = Vibrating_Funnel()
-        funnel.vibrateFunnel()
+        funnel.vibrateFunnel(funnel, funnel.speedPWM)
     if __name__ == "__main__":
         Regulator = Regulator
         runVibratingFunnel(Regulator)
