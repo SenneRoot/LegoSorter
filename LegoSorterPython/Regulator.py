@@ -15,4 +15,5 @@ class Regulator:
         Vibrating_Funnel.vibrateFunnel(Vibrating_Funnel())
 
     if __name__ == "__main__":
+
         runVibratingFunnel(Regulator)

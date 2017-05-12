@@ -1,5 +1,6 @@
 class Conveyor_Belt:
 	def __init__(self):
-		beltID
-		speedPWM
-	deftwistConveyorBelt(self, speedPWM):
+		self.beltID
+		self.speedPWM
+
+	def twistConveyorBelt(self, speedPWM):
