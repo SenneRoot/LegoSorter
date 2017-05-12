@@ -3,7 +3,7 @@ import Regulator
 
 class Regulator:
     def __init__(self):
-        Regulator = Regulator
+        self.Regulator = Regulator
 
     # def determineColour(self, Snapshot):
 
