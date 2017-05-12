@@ -15,4 +15,4 @@ class Regulator:
         #Vibrating_Funnel.vibrateFunnel(self, Vibrating_Funnel.speedPWM)
         print("hoi")
     if __name__ == "__main__":
-        runVibratingFunnel()
+        runVibratingFunnel(Vibrating_Funnel.speedPWM)
