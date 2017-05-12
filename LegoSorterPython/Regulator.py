@@ -2,7 +2,8 @@ from Vibrating_Funnel import Vibrating_Funnel
 import Regulator
 
 class Regulator:
-    # def __init__(self):
+    def __init__(self):
+        Regulator = Regulator
 
     # def determineColour(self, Snapshot):
 
@@ -14,5 +15,4 @@ class Regulator:
         Vibrating_Funnel.vibrateFunnel(Vibrating_Funnel())
 
     if __name__ == "__main__":
-        #Regulator = Regulator
-        runVibratingFunnel(Regulator())
+        runVibratingFunnel(Regulator)
