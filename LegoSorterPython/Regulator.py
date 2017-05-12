@@ -1,5 +1,5 @@
 import Vibrating_Funnel
-
+import Regulator
 
 class Regulator:
     # def __init__(self):
@@ -15,4 +15,4 @@ class Regulator:
         #Vibrating_Funnel.vibrateFunnel(self, Vibrating_Funnel.speedPWM)
         print("hoi")
     if __name__ == "__main__":
-        runVibratingFunnel(self)
+        runVibratingFunnel()
