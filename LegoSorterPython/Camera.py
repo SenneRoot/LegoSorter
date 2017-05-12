@@ -1,5 +1,7 @@
 class Camera:
 	def __init__(self):
-		Resolution = None
-		Snapshot = None
+		self.Camera = Camera
+		self.Resolution = None
+		self.Snapshot = None
+
 	def takeSnapshot(self):
