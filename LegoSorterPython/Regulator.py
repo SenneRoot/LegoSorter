@@ -7,7 +7,7 @@ class Regulator:
 
 	#def getImage(self):
 
-	def runConveyorBelt(self):
+	#def runConveyorBelt(self):
 
 	def runVibratingFunnel(self):
         Vibrating_Funnel.vibrateFunnel(self, Vibrating_Funnel.speedPWM)
