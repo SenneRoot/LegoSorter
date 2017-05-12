@@ -11,8 +11,8 @@ class Regulator:
     # def runConveyorBelt(self):
 
     def runVibratingFunnel(self):
-        funnel = Vibrating_Funnel()
-        Vibrating_Funnel.vibrateFunnel(funnel)
+        #funnel = Vibrating_Funnel()
+        Vibrating_Funnel.vibrateFunnel(Vibrating_Funnel())
 
     if __name__ == "__main__":
         Regulator = Regulator
