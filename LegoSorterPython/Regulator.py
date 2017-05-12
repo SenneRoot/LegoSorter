@@ -5,7 +5,7 @@ class Regulator:
 
 	def determineColour(self, Snapshot):
 
-	def getImage(self):
+	#def getImage(self):
 
 	def runConveyorBelt(self):
 
