@@ -1,4 +1,4 @@
-import Vibrating_Funnel
+from Vibrating_Funnel import Vibrating_Funnel
 import Regulator
 
 class Regulator:
