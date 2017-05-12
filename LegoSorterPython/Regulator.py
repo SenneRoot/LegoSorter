@@ -1,4 +1,5 @@
 import Vibrating_Funnel
+import Regulator
 
 class Regulator:
     # def __init__(self):
