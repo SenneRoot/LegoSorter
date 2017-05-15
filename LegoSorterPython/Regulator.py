@@ -20,7 +20,6 @@ class Regulator:
         Conveyor_Belt.twistConveyorBelt(belt2)
         Conveyor_Belt.twistConveyorBelt(belt3)
 
-
     def runVibratingFunnel(self):
         Vibrating_Funnel.vibrateFunnel(Vibrating_Funnel())
 
