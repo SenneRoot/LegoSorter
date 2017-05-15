@@ -28,4 +28,4 @@ class Regulator:
         runConveyorBelt(Regulator)
         while True:
             image = getImage(Regulator)
-            colour = determineColour(Regulator, image)
+            #colour = determineColour(Regulator, image)
