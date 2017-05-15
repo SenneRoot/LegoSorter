@@ -5,3 +5,4 @@ class Camera:
 		self.Snapshot = None
 
 	def takeSnapshot(self):
+		print("Snapshot captured")

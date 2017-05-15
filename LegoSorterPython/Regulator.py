@@ -1,5 +1,6 @@
 from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
+from Camera import Camera
 import Regulator
 
 class Regulator:
@@ -8,7 +9,8 @@ class Regulator:
 
     # def determineColour(self, Snapshot):
 
-    # def getImage(self):
+     def getImage(self):
+         Camera.takeSnapshot(Camera())
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
