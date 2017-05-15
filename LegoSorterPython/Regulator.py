@@ -2,12 +2,13 @@ from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
 import Regulator
+from enum import Enum
 
 class Regulator:
     def __init__(self):
         self.Regulator = Regulator
 
-    # def determineColour(self, Snapshot):
+    def determineColour(self, Snapshot):
 
     def getImage(self):
        Camera.takeSnapshot(Camera())
@@ -26,4 +27,6 @@ class Regulator:
     if __name__ == "__main__":
         runVibratingFunnel(Regulator)
         runConveyorBelt(Regulator)
-        getImage(Regulator)
+        while True:
+            image = getImage(Regulator)
+            colour = determineColour(Regulator, image)
