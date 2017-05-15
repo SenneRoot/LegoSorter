@@ -9,8 +9,8 @@ class Regulator:
 
     # def determineColour(self, Snapshot):
 
-     def getImage(self):
-         Camera.takeSnapshot(Camera())
+    def getImage(self):
+       Camera.takeSnapshot(Camera())
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
