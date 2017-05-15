@@ -8,5 +8,5 @@ class Camera:
 		self.Snapshot = None
 
 	def takeSnapshot(self):
-        Camera.capture('image.jpg')
-		print("Snapshot captured")
+            Camera.capture('image.jpg')
+        print("Snapshot captured")

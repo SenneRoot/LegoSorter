@@ -8,10 +8,10 @@ class Regulator:
     def __init__(self):
         self.Regulator = Regulator
 
-    def determineColour(self, Snapshot):
+    #def determineColour(self, Snapshot):
 
     def getImage(self):
-       Camera.takeSnapshot(Camera())
+        Camera.takeSnapshot(Camera())
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
