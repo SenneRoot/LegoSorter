@@ -27,3 +27,4 @@ class Regulator:
     if __name__ == "__main__":
         runVibratingFunnel(Regulator)
         runConveyorBelt(Regulator)
+        getImage(Regulator)
