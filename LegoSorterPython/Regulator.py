@@ -2,7 +2,6 @@ from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
 import Regulator
-from enum import Enum
 
 class Regulator:
     def __init__(self):
