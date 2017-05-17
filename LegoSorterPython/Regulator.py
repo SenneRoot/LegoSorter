@@ -11,9 +11,8 @@ class Regulator:
 
     #def determineColour(self, Snapshot):
 
-    def getImage(self):
-	Camera.__init__(Camera())
-        Camera.takeSnapshot(Camera())
+    def getImage(camera):
+        Camera.takeSnapshot(camera)
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
@@ -29,6 +28,7 @@ class Regulator:
     if __name__ == "__main__":
         runVibratingFunnel(Regulator)
         runConveyorBelt(Regulator)
-        while True:
-            image = getImage(Regulator)
+	camera = picamera.PiCamera()
+       # while True:
+	image = getImage(camera)
             #colour = determineColour(Regulator, image)
