@@ -2,19 +2,18 @@ from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
 
-#import picamera
+import picamera
 import Regulator
 
 class Regulator:
     def __init__(self):
         self.Regulator = Regulator
 
-
     #def determineColour(self, Snapshot):
 
     def getImage(camera):
-        Camera.takeSnapshot(Camera)
-        Camera.takeSnapshot(camera)
+        camera.capture('image.jpg')
+	print("Snapshot captured!")
 
     def runConveyorBelt():
         belt1 = Conveyor_Belt()
@@ -29,9 +28,8 @@ class Regulator:
 
     if __name__ == "__main__":
         vibrating_funnel = Vibrating_Funnel()
-        camera = Camera()
-		camera = picamera.PiCamera()
-        camera.resolution = (1920, 1080)
+	camera = picamera.PiCamera()
+        camera.resolution = (200, 200)
         runVibratingFunnel(vibrating_funnel)
         runConveyorBelt()
         while True:
