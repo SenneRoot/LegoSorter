@@ -2,10 +2,13 @@ from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
 
+import atexit
+import time
 import picamera
 import Regulator
 import cv2
 import numpy as np
+import RPi.GPIO as GPIO
 
 lower_range_rood = np.array([169, 100, 100], dtype=np.uint8)
 upper_range_rood = np.array([189, 255, 255], dtype=np.uint8)
@@ -21,9 +24,35 @@ upper_range_groen = np.array([84, 255, 255], dtype=np.uint8)
 
 class Regulator:
     def __init__(self):
-        self.Regulator = Regulator
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        vibrating_funnel = Vibrating_Funnel()
+        camera = picamera.PiCamera()
+        camera.resolution = (200, 200)
+        runVibratingFunnel(vibrating_funnel)
+        runConveyorBelt()
 
-    def determineColour(self, img):
+    def runConveyorBelt():
+        belt1 = Conveyor_Belt()
+        belt2 = Conveyor_Belt()
+        belt3 = Conveyor_Belt()
+        Conveyor_Belt.twistConveyorBelt(belt1)
+        Conveyor_Belt.twistConveyorBelt(belt2)
+        Conveyor_Belt.twistConveyorBelt(belt3)
+
+    def runVibratingFunnel(vibrating_funnel):
+        Vibrating_Funnel.vibrateFunnel(vibrating_funnel)
+
+    def getImage(camera):
+        camera.capture('image.jpg')
+        print("Snapshot captured!")
+    
+    def exit_handler():
+	GPIO.output(18, GPIO.LOW)
+
+    atexit.register(exit_handler)
+
+    def determineColour(img):
 		def get_img():
 			import picamera
 			img = cv2.imread("image.jpg", 1)
@@ -48,26 +77,11 @@ class Regulator:
 		hsv = to_hsv(img)
 		find_color(hsv)
 
-	def getImage(camera):
-        camera.capture('image.jpg')
-		print("Snapshot captured!")
-
-    def runConveyorBelt():
-        belt1 = Conveyor_Belt()
-        belt2 = Conveyor_Belt()
-        belt3 = Conveyor_Belt()
-        Conveyor_Belt.twistConveyorBelt(belt1)
-        Conveyor_Belt.twistConveyorBelt(belt2)
-        Conveyor_Belt.twistConveyorBelt(belt3)
-
-    def runVibratingFunnel(vibrating_funnel):
-        Vibrating_Funnel.vibrateFunnel(vibrating_funnel)
-
     if __name__ == "__main__":
-        vibrating_funnel = Vibrating_Funnel()
-	camera = picamera.PiCamera()
-        camera.resolution = (200, 200)
-        runVibratingFunnel(vibrating_funnel)
-        runConveyorBelt()
+	__init__(Regulator)
         while True:
-            image = getImage(camera)
+        	image = getImage(camera)
+		determineColour(image)
+		GPIO.output(18, GPIO.HIGH)
+		time.sleep(1)
+		GPIO.output(18, GPIO.LOW)
