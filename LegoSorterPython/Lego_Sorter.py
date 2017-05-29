@@ -1,5 +1,8 @@
-class Lego_Sorter:
-    def __init__(self):
-        self.Lego_Sorter = Lego_Sorter
+import Colour
+from enum import Enum
 
-    def pushLego(self, Colour):
+class Lego_Sorter:
+    def pushLego(colour):
+	while True:
+		print "Lego is pushed!"
+		

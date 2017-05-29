@@ -1,10 +1,7 @@
 from Vibrating_Funnel import Vibrating_Funnel
 from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
-from Lego_Sorter import Lego_Sorter
-from Colour import Colour
 
-import threading
 import atexit
 import time
 import picamera
@@ -29,6 +26,11 @@ class Regulator:
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.OUT)
+        self.vibfun = Vibrating_Funnel()
+        camera = picamera.PiCamera()
+        camera.resolution = (200, 200)
+        runVibFun(vibrating_funnel)
+        runConveyorBelt()
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
@@ -38,8 +40,8 @@ class Regulator:
         Conveyor_Belt.twistConveyorBelt(belt2)
         Conveyor_Belt.twistConveyorBelt(belt3)
 
-    def runVibratingFunnel(self, vibrating_funnel):
-        vibrating_funnel.vibrateFunnel()
+    def runVibFun(self, vibrating_funnel):
+        self.vibfun.vibrateFunnel(vibrating_funnel)
 
     def getImage(self, camera):
         camera.capture('image.jpg')
@@ -67,9 +69,9 @@ class Regulator:
 		else:
 			print("ik weet niet man")
 			
-	def to_hsv(img):
-		hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-		return hsv
+		def to_hsv(img):
+			hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+			return hsv
 
 	img = get_img()
 	hsv = to_hsv(img)
@@ -77,27 +79,8 @@ class Regulator:
 
     if __name__ == "__main__":
 	__init__(Regulator)
-	camera = picamera.PiCamera()
-        camera.resolution = (200, 200)
-	Sorter = Lego_Sorter()
-	runVibratingFunnel(Regulator, Vibrating_Funnel())
-        runConveyorBelt(Regulator)
-	try:
-		thread_red_solenoid = threading.Thread(name='thread_red', target=Sorter.pushLego)
-		thread_red_solenoid.start()
-		thread_green_solenoid = threading.Thread(name='thread_green', target=Sorter.pushLego)
-                thread_green_solenoid.start()
-		thread_blue_solenoid = threading.Thread(name='thread_blue', target=Sorter.pushLego)
-                thread_blue_solenoid.start()
-		thread_yellow_solenoid = threading.Thread(name='thread_yellow', target=Sorter.pushLego)
-                thread_yellow_solenoid.start()
-		thread_else_solenoid = threading.Thread(name='thread_else', target=Sorter.pushLego)
-		thread_else_solenoid.start()
-
-	except:
-		print "Error: unable to start thread"
         while True:
-        	image = getImage(Regulator, camera)
+        	image = getImage(camera)
 		determineColour(image)
 		GPIO.output(18, GPIO.HIGH)
 		time.sleep(1)
