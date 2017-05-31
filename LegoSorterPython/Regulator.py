@@ -29,7 +29,10 @@ upper_range_groen = np.array([84, 255, 255], dtype=np.uint8)
 class Regulator:
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(18, GPIO.OUT)
+        GPIO.setup(22, GPIO.OUT)
+	GPIO.setup(23, GPIO.OUT)
+	GPIO.setup(24, GPIO.OUT)
+	GPIO.setup(25, GPIO.OUT)
 
     def runConveyorBelt(self):
         belt1 = Conveyor_Belt()
@@ -50,7 +53,7 @@ class Regulator:
         print("Snapshot captured!")
     
     def exit_handler():
-	GPIO.output(18, GPIO.LOW)
+	GPIO.cleanup()
 
     atexit.register(exit_handler)
 
@@ -87,6 +90,3 @@ class Regulator:
         while True:
         	image = getImage(Regulator, camera)
 		determineColour(image)
-		#GPIO.output(18, GPIO.HIGH)
-		#time.sleep(1)
-		#GPIO.output(18, GPIO.LOW)
