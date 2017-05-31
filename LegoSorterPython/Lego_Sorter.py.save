@@ -1,0 +1,20 @@
+from enum import Enum
+from Colour import Colour
+import Lego_Sorter
+import thread
+
+class Lego_Sorter:
+#    def __init__(self):
+#	self.Lego_Sorter = Lego_Sorter
+
+    def pushLego(colour):
+	if(colour == Colour.Red):
+		print "Lego is pushed!"
+		
+    def startThread(self, Colour):
+	#try:
+        thread.start_new_thread(pushLego, (Colour,))
+	#thread.start_new_thread(pushLego, (Colour.Red,))
+        #except:
+                #print "Error: unable to start thread"
+

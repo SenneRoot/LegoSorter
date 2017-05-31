@@ -4,7 +4,7 @@ from Camera import Camera
 from Lego_Sorter import Lego_Sorter
 from Colour import Colour
 
-import threading
+import thread
 import atexit
 import time
 import picamera
@@ -12,6 +12,7 @@ import Regulator
 import cv2
 import numpy as np
 import RPi.GPIO as GPIO
+import enum as Enum
 
 lower_range_rood = np.array([169, 100, 100], dtype=np.uint8)
 upper_range_rood = np.array([189, 255, 255], dtype=np.uint8)
@@ -41,6 +42,9 @@ class Regulator:
     def runVibratingFunnel(self, vibrating_funnel):
         vibrating_funnel.vibrateFunnel()
 
+    def get_colour():
+	return currentColour
+    
     def getImage(self, camera):
         camera.capture('image.jpg')
         print("Snapshot captured!")
@@ -52,25 +56,24 @@ class Regulator:
 
     def determineColour(img):
 	def get_img():
-		import picamera
 		img = cv2.imread("image.jpg", 1)
 		return img
 	def find_color(hsv):
 		if cv2.inRange(hsv, lower_range_rood, upper_range_rood).any():
-			print("dit is rood")
+			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Red))
 		elif cv2.inRange(hsv, lower_range_geel, upper_range_geel).any():
-			print("dit is geel")
+			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Yellow))
 		elif cv2.inRange(hsv, lower_range_blauw, upper_range_blauw).any():
-			print("dit is blauw")
+			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Blue))
 		elif cv2.inRange(hsv, lower_range_groen, upper_range_groen).any():
-			print("dit is groen")
+			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Green))
 		else:
-			print("ik weet niet man")
-			
+			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Else))
+
 	def to_hsv(img):
 		hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 		return hsv
-
+	
 	img = get_img()
 	hsv = to_hsv(img)
 	find_color(hsv)
@@ -79,26 +82,11 @@ class Regulator:
 	__init__(Regulator)
 	camera = picamera.PiCamera()
         camera.resolution = (200, 200)
-	Sorter = Lego_Sorter()
 	runVibratingFunnel(Regulator, Vibrating_Funnel())
-        runConveyorBelt(Regulator)
-	try:
-		thread_red_solenoid = threading.Thread(name='thread_red', target=Sorter.pushLego)
-		thread_red_solenoid.start()
-		thread_green_solenoid = threading.Thread(name='thread_green', target=Sorter.pushLego)
-                thread_green_solenoid.start()
-		thread_blue_solenoid = threading.Thread(name='thread_blue', target=Sorter.pushLego)
-                thread_blue_solenoid.start()
-		thread_yellow_solenoid = threading.Thread(name='thread_yellow', target=Sorter.pushLego)
-                thread_yellow_solenoid.start()
-		thread_else_solenoid = threading.Thread(name='thread_else', target=Sorter.pushLego)
-		thread_else_solenoid.start()
-
-	except:
-		print "Error: unable to start thread"
+        runConveyorBelt(Regulator)	
         while True:
         	image = getImage(Regulator, camera)
 		determineColour(image)
-		GPIO.output(18, GPIO.HIGH)
-		time.sleep(1)
-		GPIO.output(18, GPIO.LOW)
+		#GPIO.output(18, GPIO.HIGH)
+		#time.sleep(1)
+		#GPIO.output(18, GPIO.LOW)
