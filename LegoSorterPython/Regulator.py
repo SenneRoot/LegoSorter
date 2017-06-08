@@ -78,14 +78,14 @@ class Regulator:
 		hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 		return hsv
 	
-	#img = get_img()
+	#imgCrop = image[int(1):int(14), int(192):int(167)]
 	hsv = to_hsv(image)
 	find_color(hsv)
 
     if __name__ == "__main__":
 	__init__(Regulator)
 	camera = PiCamera()
-        camera.resolution = (200, 200)
+        camera.resolution = (100, 150)
 	camera.framerate = 20
 	rawCapture = PiRGBArray(camera)
 	time.sleep(0.1)
