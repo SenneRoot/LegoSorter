@@ -3,11 +3,12 @@ from Conveyor_Belt import Conveyor_Belt
 from Camera import Camera
 from Lego_Sorter import Lego_Sorter
 from Colour import Colour
+from picamera.array import PiRGBArray
 
 import thread
 import atexit
 import time
-import picamera
+from picamera import PiCamera
 import Regulator
 import cv2
 import numpy as np
@@ -57,9 +58,9 @@ class Regulator:
 
     atexit.register(exit_handler)
 
-    def determineColour(img):
+    def determineColour(image):
 	def get_img():
-		img = cv2.imread("image.jpg", 1)
+		img = image
 		return img
 	def find_color(hsv):
 		if cv2.inRange(hsv, lower_range_rood, upper_range_rood).any():
@@ -74,19 +75,34 @@ class Regulator:
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Else))
 
 	def to_hsv(img):
-		hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+		hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 		return hsv
 	
-	img = get_img()
-	hsv = to_hsv(img)
+	#img = get_img()
+	hsv = to_hsv(image)
 	find_color(hsv)
 
     if __name__ == "__main__":
 	__init__(Regulator)
-	camera = picamera.PiCamera()
+	camera = PiCamera()
         camera.resolution = (200, 200)
+	camera.framerate = 20
+	rawCapture = PiRGBArray(camera)
+	time.sleep(0.1)
 	runVibratingFunnel(Regulator, Vibrating_Funnel())
-        runConveyorBelt(Regulator)	
-        while True:
-        	image = getImage(Regulator, camera)
+        runConveyorBelt(Regulator)
+	for frame in camera.capture_continuous(rawCapture, format="rgb", use_video_port=True):
+		image = frame.array
 		determineColour(image)
+		#cv2.imshow("Frame", image)
+		key = cv2.waitKey(1) & 0xFF
+		rawCapture.truncate(0)
+		if key == ord("q"):
+			break
+	#image = getImage(Regulator, camera)
+	#determineColour(image)	
+        #while True:
+		#ret, frame = camera.read()
+        	#image = getImage(Regulator, camera)
+	#	determineColour(frame)
+		#thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Green))
