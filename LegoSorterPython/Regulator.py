@@ -13,17 +13,17 @@ import numpy as np																	#Importeer numpy
 import RPi.GPIO as GPIO																#Importeer RPi.GPIO om de GPIO pins aan te kunnen sturen
 import enum as Enum																	#Importeer Enum om de enumeration uit de klasse 'Colour' te kunnen gebruiken
 
-lower_range_rood = np.array([169, 100, 100], dtype=np.uint8)
-upper_range_rood = np.array([189, 255, 255], dtype=np.uint8)
-
-lower_range_geel = np.array([15, 100, 100], dtype=np.uint8)
-upper_range_geel = np.array([35, 255, 255], dtype=np.uint8)
-
-lower_range_blauw = np.array([95, 100, 100], dtype=np.uint8)
-upper_range_blauw = np.array([115, 255, 255], dtype=np.uint8)
-
-lower_range_groen = np.array([64, 100, 100], dtype=np.uint8)
-upper_range_groen = np.array([84, 255, 255], dtype=np.uint8)
+lower_range_rood = np.array([169, 100, 100], dtype=np.uint8)						#
+upper_range_rood = np.array([189, 255, 255], dtype=np.uint8)						#
+                                                                                    #
+lower_range_geel = np.array([15, 100, 100], dtype=np.uint8)                         #
+upper_range_geel = np.array([35, 255, 255], dtype=np.uint8)                         #
+                                                                                    #defineer de upper en lower range van elke kleur die herkent moet worden
+lower_range_blauw = np.array([95, 100, 100], dtype=np.uint8)                        #
+upper_range_blauw = np.array([115, 255, 255], dtype=np.uint8)                       #
+                                                                                    #
+lower_range_groen = np.array([64, 100, 100], dtype=np.uint8)                        #
+upper_range_groen = np.array([84, 255, 255], dtype=np.uint8)                        #
 
 class Regulator:																	#Maak de klasse 'Regulator' aan
     def __init__(self):																#Constructor die de GPIO mode naar BCM zet en de benodigde GPIO pins configureerd als output
@@ -42,29 +42,29 @@ class Regulator:																	#Maak de klasse 'Regulator' aan
 
     atexit.register(exit_handler)
 
-    def determineColour(image):
-	def get_img():
-		img = image
-		return img
+    def determineColour(image):																#functie om de kleur te herkennen
+	def get_img():																			#functie van eerdere software om een image te krijgen
+		img = image																			#word nu niet meer gebruikt
+		return img																				
 		
 	def find_color(hsv):
-		if cv2.inRange(hsv, lower_range_rood, upper_range_rood).any():
+		if cv2.inRange(hsv, lower_range_rood, upper_range_rood).any():						#als de kleur binnen de range van rood valt 
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Red))		#Start een nieuwe thread die de functie pushLego() start, die in de klasse 'Lego_Sorter' staat met de parameter Colour.Red
-		elif cv2.inRange(hsv, lower_range_geel, upper_range_geel).any():
+		elif cv2.inRange(hsv, lower_range_geel, upper_range_geel).any():					#als de kleur binnen de range van geel valt 
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Yellow))	#Start een nieuwe thread die de functie pushLego() start, die in de klasse 'Lego_Sorter' staat met de parameter Colour.Yellow
-		elif cv2.inRange(hsv, lower_range_blauw, upper_range_blauw).any():	
+		elif cv2.inRange(hsv, lower_range_blauw, upper_range_blauw).any():					#als de kleur binnen de range van blauw valt 
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Blue))		#Start een nieuwe thread die de functie pushLego() start, die in de klasse 'Lego_Sorter' staat met de parameter Colour.Blue
-		elif cv2.inRange(hsv, lower_range_groen, upper_range_groen).any():
+		elif cv2.inRange(hsv, lower_range_groen, upper_range_groen).any():					#als de kleur binnen de range van groen valt 
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Green))	#Start een nieuwe thread die de functie pushLego() start, die in de klasse 'Lego_Sorter' staat met de parameter Colour.Green
-		else:
+		else:																				#als het geen van de kleuren is die herkent moeten worden
 			thread.start_new_thread(Lego_Sorter.pushLego, (Lego_Sorter(), Colour.Else))		#Start een nieuwe thread die de functie pushLego() start, die in de klasse 'Lego_Sorter' staat met de parameter Colour.Else
 
-	def to_hsv(img):
-		hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-		return hsv
+	def to_hsv(img):																		#functie om de image om te zetten naar een hsv image
+		hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)											#functie uit de OpenCV library die de rgb omzet naar hsv
+		return hsv																			#geef de hsv image terug
 	
-	hsv = to_hsv(image)
-	find_color(hsv)
+	hsv = to_hsv(image)																		#zet de image om naar een hsv image
+	find_color(hsv)																			#herken de kleur van de hsv image
 
     if __name__ == "__main__":															#Main van het programma
 	__init__(Regulator)																	#Activeer __init__(), de constructor met een instantie van Regulator als parameter
